@@ -1,0 +1,16 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+  "license": "MIT",
+  "proxy":"http://localhost:5656/",
+	"script": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"helmet": "^4.2.0",
+		"morgan": "^1.10.0"
+	}
+}
