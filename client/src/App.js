@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import styled from "styled-components";
+import GlobalStyle from "./GlobalStyle";
+import Home from "./Components/Home/Home";
+import About from "./Components/About/About";
+import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
+import { COLORS } from "./constants";
+
+// contexts
+import { LanguageContextProvider } from "./Context/LanguageContext";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<APPWrapper className="App">
+				<LanguageContextProvider>
+					<RouteWrapper>
+						<Router>
+							<NavBar />
+							<Switch>
+								<Route exact path="/" component={Home} />
+								<Route exact path="/about" component={About} />
+							</Switch>
+						</Router>
+					</RouteWrapper>
+					<Footer />
+				</LanguageContextProvider>
+			</APPWrapper>
+			<GlobalStyle />
+		</>
+	);
 }
 
+const APPWrapper = styled.div`
+	background: ${COLORS.lightPurple};
+`;
+const RouteWrapper = styled.div`
+	min-height: 1000px;
+`;
 export default App;

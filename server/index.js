@@ -1,10 +1,20 @@
 const express = require("express");
 const app = express();
 const helmet = require("helmet");
-PORT = 5656;
-
+const { sendResponse } = require("./util");
 app.use(helmet());
 
-app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`);
+PORT = 5656;
+
+app.get("*", (req, res) => {
+	const info = {
+		status: 404,
+		data: "",
+		message: "",
+		error: "No endpoint found.",
+	};
+	sendResponse(res, info);
+});
+app.listen(PORT, () => {
+	console.log(`Listening to port http://localhost:${PORT}`);
 });

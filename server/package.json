@@ -2,9 +2,9 @@
 	"name": "server",
 	"version": "1.0.0",
 	"main": "index.js",
-  "license": "MIT",
-  "proxy":"http://localhost:5656/",
-	"script": {
+	"license": "MIT",
+	"proxy": "http://localhost:5656/",
+	"scripts": {
 		"start": "node index.js",
 		"dev": "nodemon index.js"
 	},
