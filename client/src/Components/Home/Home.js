@@ -3,7 +3,7 @@ import react from "react";
 import { device, COLORS, IMGS } from "../../constants";
 import { useLan } from "../../Context/LanguageContext";
 import GoToBtn from "../Reusable/GoToBtn";
-import Item from "../Reusable/Item";
+import Item from "./Item";
 
 const Home = () => {
 	const { text } = useLan();
@@ -15,7 +15,7 @@ const Home = () => {
 		homeItems,
 		homeMiddleDonate,
 		homeDonation,
-	} = text; // get the texts
+	} = text["home"]; // get the texts
 
 	return (
 		<HomeWrapper>
@@ -43,9 +43,11 @@ const Home = () => {
 				<HomeIntroGrid>
 					{Object.keys(homeItems).map((ele) => {
 						return (
-							<>
-								<Item imgInfo={IMGS[ele]} itemTitle={homeItems[ele]} />
-							</>
+							<Item
+								key={`homeItems-${ele}`}
+								imgInfo={IMGS[ele]}
+								itemInfo={homeItems[ele]}
+							/>
 						);
 					})}
 				</HomeIntroGrid>
@@ -254,7 +256,7 @@ const HomeDonationBtn = styled.button`
 	text-decoration: none;
 	border-radius: 15px;
 	background: ${COLORS.orange};
-	transition: all 0.4s ease 0s;
+	transition: all 0.3s ease 0s;
 
 	:focus {
 		outline: none;
@@ -268,7 +270,7 @@ const HomeDonationBtn = styled.button`
 		-webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
 		-moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
 		box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
-		transition: all 0.4s ease 0s;
+		transition: all 0.3s ease 0s;
 	}
 `;
 const HomeDonationInfo = styled(HomeBannerInfo)``;

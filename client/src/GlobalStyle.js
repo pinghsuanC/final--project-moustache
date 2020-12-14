@@ -40,6 +40,7 @@ body {
 }
 *{
     -ms-overflow-style: none;
+    font-family:'Open Sans', sans-serif;
 }
 ::-webkit-scrollbar {
     display: none;

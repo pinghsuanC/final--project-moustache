@@ -8,8 +8,24 @@ import item5 from "./Assets/item5.jpg";
 import item6 from "./Assets/item6.jpg";
 import item7 from "./Assets/item7.jpg";
 import item8 from "./Assets/item8.jpg";
+import Moustache_logo from "./Assets/Logos/Moustache_logo.jpg";
+import stickyNote from "./Assets/stickyNote.png";
 import donation from "./Assets/donation.jpg";
-import ArrowRight from "./Assets/Logos/ArrowRight";
+
+/*import ArrowRight from "./Assets/Logos/ArrowRight";
+import No from "./Assets/Logos/No";
+import Yes from "./Assets/Logos/Yes";*/
+import {
+	BiRightArrowCircle as ArrowRight,
+	BiCheck as Yes,
+	BiX as No,
+	BiFemaleSign as Female,
+	BiMaleSign as Male,
+	BiQuestionMark as Unknown,
+	BiPin as dayPin,
+	BiHeartCircle as volunteerLogo,
+} from "react-icons/bi";
+import { AiFillFacebook as fbLogo } from "react-icons/ai";
 
 export const mediaQueries = {
 	xs: "(max-width: 320px)",
@@ -33,16 +49,23 @@ export const device = {
 
 export const COLORS = {
 	black: "black",
+	black_shadow: "rgba(60, 60, 60, 0.84)",
+	gray: "#eeeeee",
+	lightgray: "#f7f7f7",
 	white: "white",
-	gray: "lightgray",
+	white_transparent: "rgba(255,255,255, 0.7)",
+	blue: "#22A7F0",
 	lightblue: "rgb(79,176,184)",
 	palePink: "#f9e0ec",
+	pink: "#F47983",
 	paleYellow: "#fef1e0",
 	lightYellow: "#fcf876",
 	orange: "#f1b61a",
-	lightPurple: "#8f6a95",
+	lightPurple: "#836B9F",
 	darkPurple: "#4e2c76",
 	exDarkPurple: "#170243",
+	green: "green",
+	red: "red",
 };
 
 export const IMGS = {
@@ -104,6 +127,22 @@ export const IMGS = {
 		author: "Ryunosuke Kikuno",
 		authorLink: "https://unsplash.com/@kknrynsk_jp",
 	},
+	stickyNote: {
+		src: stickyNote,
+	},
 };
 
-export const LOGOS = { ArrowRight };
+export const LOGOS = {
+	ArrowRight,
+	Moustache_logo,
+	Yes,
+	No,
+	Female,
+	Male,
+	Unknown,
+	dayPin,
+	volunteerLogo,
+	fbLogo,
+};
+
+export const ip = ""; //"https://moustache-back.herokuapp.com/";

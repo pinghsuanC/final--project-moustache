@@ -1,37 +1,27 @@
 import styled from "styled-components";
 import react from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useLan } from "../Context/LanguageContext";
-import { device, COLORS, IMGS } from "../constants";
-
-function switchPage(target) {}
+import { device, COLORS } from "../constants";
 
 const NavBar = () => {
-	const history = useHistory();
 	const { text, setLan } = useLan(); // get the nav texts & set language
 	const { nav } = text;
-
-	// handle click on button to navigate to other page
-	const handleClick = (target) => {
-		history.push(`/${target}`);
-	};
-
+	const arr = Array.from(Array(Object.keys(nav).length - 2).keys());
 	return (
 		<NavBarWrapper>
-			<NavBarButton onClick={() => handleClick("")}>{nav.nav1}</NavBarButton>
-			<NavBarButton onClick={() => handleClick("about")}>
-				{nav.nav2}
-			</NavBarButton>
-			<NavBarButton>{nav.nav3}</NavBarButton>
-			<NavBarButton>{nav.nav4}</NavBarButton>
-			<NavBarButton>{nav.nav5}</NavBarButton>
-			<NavBarButton>{nav.nav6}</NavBarButton>
-			<NavBarButton>{nav.nav7}</NavBarButton>
-			<NavBarButton>{nav.nav8}</NavBarButton>
-			<NavBarButton>{nav.nav9}</NavBarButton>
+			{arr.map((ind) => {
+				const { title, path_var } = nav[`nav${ind + 1}`];
+				return (
+					<NavBarButton key={`nav-button-${ind + 1}`} to={`/${path_var}`} exact>
+						{title}
+					</NavBarButton>
+				);
+			})}
 			<NavBarLanWrapper>
-				<NavBarLan>{nav.language_en}</NavBarLan>&nbsp;&nbsp;/&nbsp;&nbsp;
-				<NavBarLan>{nav.language_fr}</NavBarLan>
+				<NavBarLan onClick={() => setLan("en")}>{nav.language_en}</NavBarLan>
+				&nbsp;&nbsp;/&nbsp;&nbsp;
+				<NavBarLan onClick={() => setLan("fr")}>{nav.language_fr}</NavBarLan>
 			</NavBarLanWrapper>
 		</NavBarWrapper>
 	);
@@ -47,11 +37,30 @@ const NavBarWrapper = styled.div`
 	justify-content: space-evenly;
 	align-items: center;
 `;
-const NavBarButton = styled.div`
+const activeClassName = "nav-item-active";
+const NavBarButton = styled(NavLink).attrs({ activeClassName })`
+	color: ${COLORS.white};
+	text-decoration: none;
 	cursor: pointer;
 	font-size: 1.1rem;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	background: ${COLORS.darkPurple};
+
+	:hover {
+		background: ${COLORS.lightPurple};
+	}
+	&.${activeClassName} {
+		background: ${COLORS.lightPurple};
+		text-decoration: underline;
+	}
 `;
-const NavBarLanWrapper = styled.div``;
+const NavBarLanWrapper = styled.div`
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+`;
 const NavBarLan = styled.span`
 	font-size: 1.2rem;
 	cursor: pointer;

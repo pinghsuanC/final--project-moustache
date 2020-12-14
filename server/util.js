@@ -2,9 +2,12 @@
 
 // function to send back response
 const sendResponse = (res, info) => {
-	const { data, status, message, error } = info;
+	//const { data, status, message, error } = info;
 
-	res.status(status).json({ status, data, message, error });
+	res.status(info.status).json({ ...info });
 };
+
+//const fk = Buffer.from(process.env.FIRE_PRIVATE_KEY).toString("base64");
+//console.log(fk);
 
 module.exports = { sendResponse };

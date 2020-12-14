@@ -3,14 +3,31 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
-	"proxy": "http://localhost:5656/",
+	"engines": {
+		"node": "12.x"
+	},
+	
 	"scripts": {
 		"start": "node index.js",
 		"dev": "nodemon index.js"
 	},
 	"dependencies": {
+		"@babel/core": "^7.12.9",
+		"@babel/register": "^7.12.10",
+		"babel": "^6.23.0",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
+		"firebase-admin": "^9.4.2",
 		"helmet": "^4.2.0",
-		"morgan": "^1.10.0"
-	}
+		"morgan": "^1.10.0",
+		"node-fetch": "^2.6.1",
+		"pet-finder-api": "^1.0.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.9",
+		"@babel/register": "^7.12.10"
+	},
+	"author": "",
+	"description": ""
 }
