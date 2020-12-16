@@ -365,6 +365,10 @@ const LanguageContextProvider = ({ children }) => {
 			dateEventAllT: "FR: All events are listed below.",
 		},
 		confirmEventT: {
+			title: {
+				title0: "FR: Are you sure you want to ",
+				title1: " FR: the following event? Click yes to ",
+			},
 			labelT: {
 				title: "FR: Title",
 				type: "FR: Type",
@@ -375,7 +379,11 @@ const LanguageContextProvider = ({ children }) => {
 				date: "FR: Date",
 			},
 			btnT: {
-				confirm: "FR: confirm",
+				confirm: "FR: YFes",
+				cancel: "FR: No",
+			},
+			typeT: {
+				add: "FR: add",
 				cancel: "FR: cancel",
 			},
 		},
@@ -392,6 +400,10 @@ const LanguageContextProvider = ({ children }) => {
 			},
 			btnT: {
 				cancel: "FR: cancel",
+			},
+			typeT: {
+				add: "FR:add",
+				delete: "FR:delete",
 			},
 		},
 		postT: {
