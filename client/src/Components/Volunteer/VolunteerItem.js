@@ -2,23 +2,21 @@ import styled from "styled-components";
 import react from "react";
 import { device, COLORS, LOGOS } from "../../constants";
 import { useLan } from "../../Context/LanguageContext";
+import TemplateDiv from "../Reusable/TemplateDiv";
 
 const VolunteerItem = ({ info }) => {
 	const { type, description, requirement } = info;
-	const vItemT = {
-		typeT: "",
-		descriptionT: "You will be helping with...",
-		requirementT: "You will need...",
-	};
-	const { typeT, descriptionT, requirementT } = vItemT;
+	const {
+		vItemTxt: { typeT, descriptionT, requirementT },
+	} = useLan().text;
+
 	return (
 		<VolunteerItemWrapper>
 			<VILogo>
-				<LOGOS.volunteerLogo size="40px" color={COLORS.exDarkPurple} />
+				<LOGOS.Volunteer_logo size="40px" color={COLORS.exDarkPurple} />
 			</VILogo>
 			<VIT>
-				<VIItemTitle>{typeT}</VIItemTitle>
-				{type}
+				<VIItemTitle>{type}</VIItemTitle>
 			</VIT>
 			<VID>
 				<VIItemTitle>{descriptionT}</VIItemTitle>
@@ -31,27 +29,32 @@ const VolunteerItem = ({ info }) => {
 		</VolunteerItemWrapper>
 	);
 };
-const VolunteerItemWrapper = styled.ul`
-	list-style-type: none;
-	margin-top: 50px;
-	width: 350px;
-	background: ${COLORS.white_transparent};
-	border-radius: 10px;
-	padding: 20px;
-	li {
-		margin-top: 15px;
+const VolunteerItemWrapper = styled(TemplateDiv)`
+	margin-top: 20px;
+	margin-right: 10px;
+	max-width: 200px;
+
+	div {
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 `;
-const VILogo = styled.li``;
 const VIItemTitle = styled.h3`
-	margin-bottom: 5px;
+	margin-bottom: 15px;
+	height: auto;
 `;
-const VIT = styled.li`
+const VIT = styled.div`
+	min-height: 90px;
 	font-weight: 600;
 	font-size: 1.6rem;
 	font-style: underline;
 `;
-const VID = styled.li``;
-const VIR = styled.li``;
+const VILogo = styled.div`
+	margin-top: 25px;
+`;
+const VID = styled.div`
+	min-height: 115px;
+`;
+const VIR = styled(VID)``;
 
 export default VolunteerItem;

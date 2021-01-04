@@ -1,5 +1,5 @@
 const initialState = {
-	token: null,
+	token: false,
 	status: "initial",
 	animals: [],
 	count: -1,
@@ -13,7 +13,8 @@ export default function pfReducer(state = { ...initialState }, action) {
 		}
 		case "RECEIVE_PF_ACCESS_TOKEN": {
 			//console.log(action);
-			return { ...state, token: action.token, status: "idle" };
+			// decided to not to store the token
+			return { ...state, token: true, status: "ready" };
 		}
 		case "RECEIVE_PF_ACCESS_TOKEN_ERROR": {
 			return { ...state, status: "error" };

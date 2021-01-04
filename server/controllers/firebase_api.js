@@ -1,8 +1,8 @@
 const lodash = require("lodash");
-const fb = require("express").Router();
+const firebase = require("express").Router();
 
 const { createUser } = require("../handlers/client_handlers/firebase_handlers");
 
-fb.post("/users", createUser);
+firebase.post("/users", createUser);
 
-module.exports = fb;
+module.exports = firebase;

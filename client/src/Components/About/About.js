@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import react from "react";
-import { device, COLORS, LOGOS } from "../../constants";
+import { COLORS, LOGOS, LINKSADDED, device } from "../../constants";
 import { useLan } from "../../Context/LanguageContext";
+import Reusable from "../Reusable";
+import H1 from "../Reusable/H1";
+import TemplateDiv from "../Reusable/TemplateDiv";
 
 const About = () => {
 	const { text } = useLan();
@@ -12,11 +14,26 @@ const About = () => {
 		aboutCH,
 		aboutIntroTitle,
 		aboutIntro,
+		aboutLinkTitle,
 	} = text["about"];
 	return (
 		<AboutWrapper>
-			<AboutTitle>{aboutUs}</AboutTitle>
+			<H1>{aboutUs}</H1>
 			<AboutInnerWrapper>
+				<AboutInfoWrapper>
+					<AboutInfoInnerWrapper>
+						<AboutInfoTitle>{aboutIntroTitle}</AboutInfoTitle>
+						<AboutInfo>
+							{Object.keys(aboutIntro).map((ele, ind) => {
+								return (
+									<AboutInfoLi key={`aboutIntro-${ind}`}>
+										{aboutIntro[ele]}
+									</AboutInfoLi>
+								);
+							})}
+						</AboutInfo>
+					</AboutInfoInnerWrapper>
+				</AboutInfoWrapper>
 				<AboutVerticleWrapper>
 					<AboutInfoLogoWrapper>
 						<AboutInfoLogo src={LOGOS.Moustache_logo} />
@@ -35,50 +52,35 @@ const About = () => {
 						</AboutRegistrat>
 					</AboutLegal>
 					<AboutSocial>
-						<AboutLink
-							href="https://www.facebook.com/MoustacheAdoptionsMtl/"
-							target="_blank"
-						>
-							<LOGOS.fbLogo size="40px" color={COLORS.darkPurple} />
-						</AboutLink>
+						<AboutSubTitle>{aboutLinkTitle}</AboutSubTitle>
+						<Reusable.AnchorLink href={LINKSADDED.link_moustacheFB}>
+							<LOGOS.Fb_Logo size="30px" color={COLORS.darkPurple} />
+						</Reusable.AnchorLink>
+						<Reusable.AnchorLink href={LINKSADDED.link_moustachePF}>
+							<LOGOS.Petfinder_logo color={COLORS.darkPurple} height="30px" />
+						</Reusable.AnchorLink>
 					</AboutSocial>
 				</AboutVerticleWrapper>
-				<AboutInfoWrapper>
-					<AboutInfoInnerWrapper>
-						<AboutInfoTitle>{aboutIntroTitle}</AboutInfoTitle>
-						<AboutInfo>
-							{Object.keys(aboutIntro).map((ele) => {
-								return (
-									<AboutInfoLi key={`aboutIntro-${ele}`}>
-										{aboutIntro[ele]}
-									</AboutInfoLi>
-								);
-							})}
-						</AboutInfo>
-					</AboutInfoInnerWrapper>
-				</AboutInfoWrapper>
 			</AboutInnerWrapper>
 		</AboutWrapper>
 	);
 };
 
 const AboutWrapper = styled.div`
-	padding-top: 100px;
-	width: 80%;
+	padding-top: 50px;
+	width: 90%;
 	height: auto;
-	margin-left: 10%;
+	margin-left: 5%;
 `;
 
 // ========= Overall wrapper =========
 const AboutInnerWrapper = styled.div`
 	width: 100%;
-	margin-top: 50px;
 	display: flex;
 	justify-content: space-evenly;
-`;
-const AboutTitle = styled.h1`
-	font-size: 5rem;
-	color: ${COLORS.white};
+	@media ${device.sm} {
+		flex-direction: column;
+	}
 `;
 const AboutSubTitle = styled.h2`
 	font-size: 2rem;
@@ -86,16 +88,18 @@ const AboutSubTitle = styled.h2`
 	padding-top: 20px;
 `;
 const AboutVerticleWrapper = styled.div`
-	width: 23%;
+	width: 25%;
+	@media ${device.sm}, ${device.xs} {
+		width: 90%;
+		margin-left: 5%;
+		margin-top: 25px;
+	}
 `;
+
 // ========= Legal Information =========
-const AboutLegal = styled.div`
-	background: ${COLORS.white_transparent};
-	height: auto;
+const AboutLegal = styled(TemplateDiv)`
 	min-height: 290px;
-	border-radius: 10px;
 	padding: 10px;
-	text-align: center;
 	-webkit-box-shadow: 12px 13px 2px -3px ${COLORS.black_shadow};
 	box-shadow: 12px 13px 2px -3px ${COLORS.black_shadow};
 `;
@@ -121,30 +125,35 @@ const ABoutReSubN = styled.div`
 	text-align: center;
 `;
 const AboutSocial = styled(AboutLegal)`
-	min-height: 0px;
+	min-height: 180px;
 	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 `;
-const AboutLink = styled.a`
-	text-decoration: none;
-`;
+
 // === insert logo ===
 const AboutInfoLogoWrapper = styled.div`
 	margin-bottom: 10px;
 `;
 const AboutInfoLogo = styled.img`
 	object-fit: cover;
-	width: 100%;
+	width: 250px;
+	height: 250px;
+	@media ${device.sm}, ${device.xs} {
+		display: none;
+	}
 `;
 // ========= about information =========
 const AboutInfoWrapper = styled.div`
-	width: 65%;
+	width: 60%;
 	height: 100%;
+	@media ${device.sm} {
+		width: 90%;
+		margin-left: 5%;
+	}
 `;
-const AboutInfoInnerWrapper = styled.div`
-	width: 100%;
-	height: 100%;
-	background: ${COLORS.white_transparent};
-	border-radius: 10px;
+const AboutInfoInnerWrapper = styled(TemplateDiv)`
 	-webkit-box-shadow: 12px 13px 2px -3px ${COLORS.black_shadow};
 	box-shadow: 12px 13px 2px -3px ${COLORS.black_shadow};
 `;

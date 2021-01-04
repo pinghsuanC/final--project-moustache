@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getISOLocalDate } from "@wojtekmaj/date-utils";
 import { useLan } from "../../Context/LanguageContext";
 import { useCalendarContext } from "../../Context/CalendarContext";
-import { COLORS } from "../../constants";
+import { COLORS, device } from "../../constants";
 
 const CalendarAddForm = () => {
 	const { ourCalT } = useLan().text;
@@ -44,7 +44,7 @@ const CalendarAddForm = () => {
 					/>
 				</OurCalendarFormCom>
 				<OurCalendarFormCom>
-					<OurCalenderFormLabel htmlFor="endTime">
+					<OurCalenderFormLabel htmlFor="location">
 						{addEventT.location}
 					</OurCalenderFormLabel>
 					<OurCalendarFormInput
@@ -56,7 +56,7 @@ const CalendarAddForm = () => {
 					/>
 				</OurCalendarFormCom>
 				<OurCalenderFormComShort>
-					<OurCalenderFormLabel htmlFor="startTime">
+					<OurCalenderFormLabel htmlFor="startT">
 						{addEventT.startT}
 					</OurCalenderFormLabel>
 					<OurCalendarFormInput
@@ -67,7 +67,7 @@ const CalendarAddForm = () => {
 					/>
 				</OurCalenderFormComShort>
 				<OurCalenderFormComShort>
-					<OurCalenderFormLabel htmlFor="endTime">
+					<OurCalenderFormLabel htmlFor="endT">
 						{addEventT.endT}
 					</OurCalenderFormLabel>
 					<OurCalendarFormInput
@@ -102,6 +102,9 @@ const OurCalendarAddEventWrapper = styled.div`
 	background: ${COLORS.white_transparent};
 	border-radius: 10px;
 	padding: 10px;
+	@media ${device.sm} {
+		width: 80%;
+	}
 `;
 const OurCalendarSubmit = styled.button`
 	cursor: pointer;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import react, { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import firebase from "firebase";
 
 //redux

@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import react from "react";
-import { COLORS } from "../../constants";
+import { COLORS, device } from "../../constants";
 import GotoBtn from "../Reusable/GoToBtn";
 
-const Item = ({ imgInfo, itemInfo }) => {
+const Item = ({ imgInfo, itemInfo, media }) => {
 	return (
 		<ItemWrapper>
 			<ItemLink to={`/${itemInfo.path_var}`}>
 				<ItemImg src={imgInfo.src} />
 				<ItemTitleWrapper>
 					<ItemTitleInner>{itemInfo.title}</ItemTitleInner>
-					<GotoBtn width="25px" height="25px" color={COLORS.white} />
+					{(media.lg || media.md) && (
+						<GotoBtn width="25px" height="25px" color={COLORS.white} />
+					)}
 				</ItemTitleWrapper>
 			</ItemLink>
 		</ItemWrapper>
@@ -21,10 +22,8 @@ const ItemWrapper = styled.div`
 	cursor: pointer;
 	object-fit: cover;
 	overflow: hidden;
-	width: 330px;
-	height: 200px;
 	border-radius: 13px;
-	margin: 20px;
+	margin: 7px;
 	position: relative;
 	:hover img {
 		-webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
@@ -34,6 +33,20 @@ const ItemWrapper = styled.div`
 	}
 	:hover h2 {
 		font-size: 2rem;
+	}
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		width: 300px;
+		height: 80px;
+	}
+	@media ${device.md} {
+		width: 300px;
+		height: 180px;
+	}
+	@media ${device.lg} {
+		width: 310px;
+		height: 200px;
 	}
 `;
 const ItemLink = styled(Link)`

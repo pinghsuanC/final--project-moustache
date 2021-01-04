@@ -6,9 +6,8 @@ import allActions from "../../Redux/Actions";
 // context
 import { AppContext } from "../../Context/AppContext";
 import { useLan } from "../../Context/LanguageContext";
-import { usePostContext } from "../../Context/PostContext";
 
-import { COLORS, LOGOS } from "../../constants";
+import { COLORS } from "../../constants";
 import ConfirmPostEvent from "./ConfirmPostEvent";
 import { firestoreApp } from "../../Firebase";
 
@@ -101,7 +100,7 @@ const SinglePost = ({ postInner }) => {
 };
 
 const PostWrapper = styled.div`
-	width: 50%;
+	width: 60%;
 	height: auto;
 	min-height: 300px;
 	background: ${COLORS.white_transparent};

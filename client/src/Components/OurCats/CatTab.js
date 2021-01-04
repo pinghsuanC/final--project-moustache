@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import react from "react";
 import { LOGOS, COLORS } from "../../constants";
-import GoToBtn from "../Reusable/GoToBtn";
 import { useLan } from "../../Context/LanguageContext";
 
 const CatTab = ({ cat }) => {
-	const { catTabT } = useLan().text;
+	const { curLan } = useLan();
+	const {
+		catTabT: { appearance, health, friendly, click },
+	} = useLan().text;
+	
 	const {
 		photos,
 		attributes,
@@ -16,8 +18,6 @@ const CatTab = ({ cat }) => {
 		coat,
 		colors,
 	} = cat;
-
-	const { appearance, health, friendly, click } = catTabT;
 
 	return (
 		<CatTabWrapper>
@@ -38,7 +38,16 @@ const CatTab = ({ cat }) => {
 					<CatTabRightInnerTitle>{appearance.title}</CatTabRightInnerTitle>
 					<CatTabRightUl>
 						<CatTabRightLi>
-							{appearance.hair}: {coat.toLowerCase()}
+							{appearance.hair}:{" "}
+							{coat ? (
+								coat.toLowerCase()
+							) : (
+								<LOGOS.Unknown
+									type="regular"
+									color={COLORS.black}
+									size="20px"
+								/>
+							)}
 						</CatTabRightLi>
 						<CatTabRightLi>
 							{appearance.colors}: {getColors(colors)}
@@ -82,10 +91,12 @@ const CatTab = ({ cat }) => {
 					</CatTabRightUl>
 				</CatTabRightInner>
 				<CatTabRightInner>
-					<CatTabRightA href={url} gender={gender}>
+					<CatTabRightA href={url} gender={gender} target="_blank">
 						<CatTabRightUl>
 							<CatTabRightLi>
-								{`${click.click0} ${getGender(gender)} ${click.click1}`}
+								{`${click.click0} ${curLan === "en" ? getGender(gender) : ""} ${
+									click.click1
+								}`}
 							</CatTabRightLi>
 							<CatTabRightLi>
 								<LOGOS.ArrowRight
@@ -146,7 +157,7 @@ const CatTabWrapper = styled.div`
 	display: flex;
 	overflow: hidden;
 	border-radius: 10px;
-	margin: 10px;
+	margin-bottom: 10px;
 	background: ${COLORS.gray};
 	border: 3px solid ${COLORS.black};
 	color: ${COLORS.black};

@@ -2,9 +2,8 @@
 const getPfToken = () => ({
 	type: "GET_PF_ACCESS_TOKEN",
 });
-const receivePfAccessToken = (token) => ({
+const receivePfAccessToken = () => ({
 	type: "RECEIVE_PF_ACCESS_TOKEN",
-	token: token,
 });
 const receivePfAccessTokenErr = () => ({
 	type: "RECEIVE_PF_ACCESS_TOKEN_ERROR",

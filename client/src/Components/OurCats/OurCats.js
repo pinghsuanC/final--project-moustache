@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import allActions from "../../Redux/Actions";
 import { useLan } from "../../Context/LanguageContext";
-import { COLORS, ip } from "../../constants";
+import { COLORS, ip, LINKSADDED } from "../../constants";
 import Loading from "../Reusable/Loading";
 import CatTab from "./CatTab";
 import ErrorPage from "../Reusable/ErrorPage";
@@ -17,7 +17,46 @@ const OurCats = () => {
 	const animals = useSelector((state) => state.pfReducer.animals);
 	const adoptedCount = useSelector((state) => state.pfReducer.adoptedCount);
 	const status = useSelector((state) => state.pfReducer.status);
+	const tokenPF = useSelector((state) => state.pfReducer.token);
+
 	//console.log(status);
+	useEffect(() => {
+		// get tokenPF
+		const getToken = async () => {
+			try {
+				let info = await fetch(`${ip}/api/petfinder/token`);
+				info = await info.json();
+				return info;
+			} catch (err) {
+				console.log(err);
+				throw new Error();
+			}
+		};
+		const scheduler_task = {
+			request: pfActions.getPfToken,
+			success: pfActions.receivePfAccessToken,
+			error: pfActions.receivePfAccessTokenErr,
+		};
+		const getTokenProcess = async () => {
+			dispatch(scheduler_task.request());
+			try {
+				const d = await getToken();
+				if (d.success) {
+					dispatch(scheduler_task.success());
+				} else {
+					console.log(d.message);
+					dispatch(scheduler_task.error());
+				}
+			} catch (err) {
+				console.log(err);
+				dispatch(scheduler_task.error());
+			}
+		};
+
+		if (!tokenPF && status !== "error") {
+			getTokenProcess();
+		}
+	}, []);
 
 	// retrieve info
 	useEffect(() => {
@@ -27,17 +66,6 @@ const OurCats = () => {
 		// 3. get total cat adopted through orga
 
 		const scheduler = [
-			async () => {
-				try {
-					const data = await fetch(`${ip}/api/petfinder/token`).then((info) =>
-						info.json()
-					);
-					return data;
-				} catch (err) {
-					console.log(err);
-					throw new Error();
-				}
-			},
 			async () => {
 				try {
 					const data = await fetch(
@@ -63,11 +91,6 @@ const OurCats = () => {
 		];
 		const scheduler_task = [
 			{
-				request: pfActions.getPfToken,
-				success: (token) => pfActions.receivePfAccessToken(token),
-				error: pfActions.receivePfAccessTokenErr,
-			},
-			{
 				request: pfActions.getPfAnimals,
 				success: (animals) => pfActions.receivePfAnimals(animals),
 				error: pfActions.receivePfAnimalsErr,
@@ -79,8 +102,8 @@ const OurCats = () => {
 			},
 		];
 
-		// go through the scheduler and the tasks only if no data was found locally
-		if (status === "initial") {
+		// go through the scheduler and the tasks only iftoken retrieved
+		if (status === "ready") {
 			scheduler.reduce((acc, ele, ind) => {
 				dispatch(scheduler_task[ind].request());
 				ele()
@@ -99,21 +122,20 @@ const OurCats = () => {
 					});
 			}, []);
 		}
-	}, []);
+	}, [tokenPF]);
 
-	if (!animals || status === "loading" || status === "initial") {
-		return (
-			<OurCatsWrapper>
-				<Loading />
-			</OurCatsWrapper>
-		);
-	}
-
-	return status === "idle" ? (
+	return !animals || status === "loading" || status === "initial" ? (
+		<OurCatsWrapper>
+			<Loading />
+		</OurCatsWrapper>
+	) : status === "idle" ? (
 		<OurCatsWrapper>
 			<OurCatsSuccess>
 				{ourcatsT.success[0]}&nbsp;
-				<OurCatSuccessNum href="https://www.petfinder.com/search/pets-adopted/?shelter_id%5B0%5D=QC64&sort%5B0%5D=recently_added">
+				<OurCatSuccessNum
+					target="_blank"
+					href={LINKSADDED.link_moustacheAdopted}
+				>
 					{adoptedCount}
 				</OurCatSuccessNum>
 				&nbsp;{ourcatsT.success[1]}

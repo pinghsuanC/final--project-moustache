@@ -2,7 +2,7 @@
 
 // function to send back response
 const sendResponse = (res, info) => {
-	//const { data, status, message, error } = info;
+	//const { data, status, message, error,success } = info;
 
 	res.status(info.status).json({ ...info });
 };

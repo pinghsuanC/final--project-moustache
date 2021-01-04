@@ -4,11 +4,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import allActions from "../../Redux/Actions";
 // constants and context
-import { COLORS } from "../../constants";
+import { device } from "../../constants";
 import { useLan } from "../../Context/LanguageContext";
 import { AppContext } from "../../Context/AppContext";
-import { useCalendarContext } from "../../Context/CalendarContext";
+
 // other components
+import TemplateDiv from "../Reusable/TemplateDiv";
+import StyledButton from "../Reusable/StyledButton";
 import ConfirmEvent from "./ConfirmEvent";
 import Loading from "../Reusable/Loading";
 import ErrorPage from "../Reusable/ErrorPage";
@@ -137,15 +139,20 @@ const CalendarEvent = ({ eventInfo, ind }) => {
 		</CalendarEventWrapper>
 	);
 };
-const CalendarEventWrapper = styled.div`
-	margin: 10px;
-	background: ${COLORS.white_transparent};
-	border-radius: 10px;
-	width: 31%;
+const CalendarEventWrapper = styled(TemplateDiv)`
+	margin: 5px;
+	width: 30%;
 	min-height: 200px;
-	height: auto;
 	display: flex;
 	flex-direction: column;
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		width: 42%;
+	}
+	@media ${device.lg}, ${device.md} {
+		width: 30%;
+	}
 `;
 const CalendarEventInnerWrapper = styled.div`
 	width: 100%;
@@ -184,20 +191,8 @@ const CalendarEventLi = styled.li`
 	margin-top: 5px;
 `;
 
-const CalendarEventCancelBtn = styled.button`
-	margin: 10px;
-	cursor: pointer;
-	color: white;
+const CalendarEventCancelBtn = styled(StyledButton)`
 	bottom: 1%;
-	background: ${COLORS.darkPurple};
-	width: 100px;
-	height: 50px;
 	border-radius: 10px;
-	align-self: center;
-	text-transform: uppercase;
-
-	:focus {
-		outline: none;
-	}
 `;
 export default CalendarEvent;

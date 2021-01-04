@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import react from "react";
+import { useHistory } from "react-router-dom";
 import { device, COLORS, IMGS } from "../../constants";
 import { useLan } from "../../Context/LanguageContext";
-import GoToBtn from "../Reusable/GoToBtn";
+import { useMedia } from "../../Context/MediaContext";
 import Item from "./Item";
 
 const Home = () => {
 	const { text } = useLan();
+	const history = useHistory();
 	const {
 		homeTitle,
 		homeSubTitle,
@@ -16,6 +17,8 @@ const Home = () => {
 		homeMiddleDonate,
 		homeDonation,
 	} = text["home"]; // get the texts
+	const m = useMedia(); // get the media
+	console.log(m);
 
 	return (
 		<HomeWrapper>
@@ -36,7 +39,6 @@ const Home = () => {
 			<HomeMiddle>{homeMiddleIntro}</HomeMiddle>
 			{/*General Intro*/}
 			<HomeIntroWrapper>
-				<HomeIntroImg src={IMGS.cat_intro.src} />
 				<HomeIntroTitleWrapper>
 					<HomeIntroTitle>{homeReadMore}</HomeIntroTitle>
 				</HomeIntroTitleWrapper>
@@ -47,6 +49,7 @@ const Home = () => {
 								key={`homeItems-${ele}`}
 								imgInfo={IMGS[ele]}
 								itemInfo={homeItems[ele]}
+								media={m}
 							/>
 						);
 					})}
@@ -62,7 +65,9 @@ const Home = () => {
 			<HomeMiddle>{homeMiddleDonate}</HomeMiddle>
 			<HomeDonationWrapper>
 				<HomeDonationTitle>{homeDonation.donate}</HomeDonationTitle>
-				<HomeDonationBtn>{homeDonation.button}</HomeDonationBtn>
+				<HomeDonationBtn onClick={() => history.push("/donation")}>
+					{homeDonation.button}
+				</HomeDonationBtn>
 				<HomeDonationImg src={IMGS.donation.src} />
 				<HomeDonationInfo>
 					Photo by &nbsp;
@@ -77,6 +82,7 @@ const Home = () => {
 const HomeWrapper = styled.div`
 	overflow: hidden;
 	height: auto;
+	width: 100%;
 	@media ${device.xs} {
 	}
 	@media ${device.sm} {
@@ -92,18 +98,22 @@ const HomeBannerWrapper = styled.div`
 
 const HomeTitleWrapper = styled.div`
 	position: absolute;
-	z-index: 1000;
+	z-index: 150;
 	@media ${device.xs} {
 		left: 45%;
 		top: 40%;
 	}
 	@media ${device.sm} {
-	}
-	@media ${device.md} {
-	}
-	@media ${device.lg} {
 		left: 7%;
 		top: 30%;
+	}
+	@media ${device.md} {
+		left: 3%;
+		top: 55%;
+	}
+	@media ${device.lg} {
+		left: 5%;
+		top: 15%;
 	}
 `;
 const HomeTitle = styled.h1`
@@ -113,21 +123,33 @@ const HomeTitle = styled.h1`
 		font-size: 2rem;
 	}
 	@media ${device.sm} {
+		font-size: 5rem;
 	}
 	@media ${device.md} {
+		font-size: 5rem;
 	}
 	@media ${device.lg} {
-		font-size: 8rem;
+		font-size: 10rem;
 	}
 `;
 const HomeSubTitle = styled.h3`
 	color: ${COLORS.white};
 	text-shadow: 2px 1px 6px rgba(255, 255, 255, 0.53);
-	font-size: 2rem;
+
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		font-size: 1.5rem;
+	}
+	@media ${device.md} {
+		font-size: 2rem;
+	}
+	@media ${device.lg} {
+		font-size: 3rem;
+	}
 `;
 
 const HomeBanner = styled.img`
-	width: 100%;
 	object-fit: cover;
 	overflow: hidden;
 	position: relative;
@@ -136,9 +158,17 @@ const HomeBanner = styled.img`
 		height: 150px;
 		right: 170px;
 	}
+	@media ${device.sm} {
+		height: 300px;
+		width: 150%;
+	}
+	@media ${device.md} {
+		height: 400px;
+		width: 150%;
+	}
 	@media ${device.lg} {
 		width: 150%;
-		height: 700px;
+		height: 650px;
 	}
 `;
 
@@ -168,55 +198,76 @@ const HomeBannerInfoLink = styled.a`
 // == middle ==
 const HomeMiddle = styled.div`
 	color: ${COLORS.white};
-	height: 200px;
-	width: 100%;
-	line-height: 200px;
+	height: auto;
+	text-align: center;
+	width: 90%;
+	line-height: 25px;
 	font-size: 1.5rem;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	padding-left: 60px;
+	padding-right: 60px;
 `;
 
 //== intro ==
 const HomeIntroWrapper = styled.div`
 	position: relative;
-
+	background-image: url(${IMGS.cat_intro.src});
 	@media ${device.xs} {
+		height: 700px;
 	}
 	@media ${device.sm} {
+		height: 600px;
 	}
 	@media ${device.md} {
+		height: 900px;
 	}
 	@media ${device.lg} {
-	}
-`;
-const HomeIntroImg = styled.img`
-	object-fit: cover;
-	width: 100%;
-	overflow: hidden;
-	@media ${device.xs} {
-	}
-	@media ${device.sm} {
-	}
-	@media ${device.md} {
-	}
-	@media ${device.lg} {
-		height: 1200px;
+		height: 1000px;
 	}
 `;
 const HomeIntroImgInfo = styled(HomeBannerInfo)``;
 const HomeIntroInfoImgLink = styled(HomeBannerInfoLink)``;
 const HomeIntroTitleWrapper = styled(HomeTitleWrapper)`
-	top: 200px;
+	top: 30px;
+	width: 90%;
+	text-align: center;
+	padding-left: 10px;
 `;
 const HomeIntroTitle = styled(HomeTitle)`
-	width: 100%;
 	color: black;
+	text-align: center;
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		font-size: 3rem;
+	}
+	@media ${device.md} {
+		font-size: 7rem;
+	}
+	@media ${device.lg} {
+		font-size: 8rem;
+	}
 `;
 const HomeIntroGrid = styled.div`
 	position: absolute;
-	top: 450px;
 	display: flex;
 	flex-wrap: wrap;
-	width: 95%;
-	left: 2.5%;
+	align-items: center;
+	justify-content: center;
+	width: 97%;
+	left: 1.5%;
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		top: 130px;
+	}
+	@media ${device.md} {
+		top: 240px;
+	}
+	@media ${device.lg} {
+		top: 300px;
+	}
 `;
 
 // == Donation ==
@@ -230,10 +281,20 @@ const HomeDonationWrapper = styled.div`
 const HomeDonationTitle = styled(HomeIntroTitle)`
 	position: absolute;
 	color: ${COLORS.white};
-	z-index: 1000;
-	font-size: 3rem;
-	top: 300px;
+	z-index: 100;
+	font-size: 2.5rem;
 	width: 70%;
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		top: 250px;
+	}
+	@media ${device.md} {
+		top: 250px;
+	}
+	@media ${device.lg} {
+		top: 300px;
+	}
 `;
 const HomeDonationImg = styled.img`
 	width: 100%;
@@ -249,14 +310,25 @@ const HomeDonationBtn = styled.button`
 	width: 200px;
 	height: 100px;
 	position: absolute;
-	z-index: 900;
-	top: 450px;
+	z-index: 100;
 	outline: none;
 	text-transform: uppercase;
 	text-decoration: none;
 	border-radius: 15px;
 	background: ${COLORS.orange};
 	transition: all 0.3s ease 0s;
+
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		top: 470px;
+	}
+	@media ${device.md} {
+		top: 400px;
+	}
+	@media ${device.lg} {
+		top: 450px;
+	}
 
 	:focus {
 		outline: none;

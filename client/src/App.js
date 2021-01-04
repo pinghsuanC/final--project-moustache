@@ -19,46 +19,49 @@ import Education from "./Components/Education/Education";
 import NavBar from "./Components/NavBar";
 import Footer from "./Components/Footer";
 
-import { COLORS } from "./constants";
+import { COLORS, mediaQueries } from "./constants";
 
 // contexts
 import { LanguageContextProvider } from "./Context/LanguageContext";
 import { CalendarContextProvider } from "./Context/CalendarContext";
 import { PostContextProvider } from "./Context/PostContext";
+import { MediaContextProvider } from "./Context/MediaContext";
 
 function App() {
 	return (
 		<>
 			<APPWrapper className="App">
 				<LanguageContextProvider>
-					<RouteWrapper>
+					<MediaContextProvider mediaQueries={mediaQueries}>
 						<Router>
 							<ScrollToTop />
 							<NavBar />
-							<Switch>
-								<Route exact path="/about" component={About} />
-								<Route exact path="/donation" component={Donation} />
-								<Route exact path="/adoption" component={Adoption} />
-								<Route exact path="/ourcats" component={OurCats} />
-								<Route exact path="/calendar">
-									<CalendarContextProvider>
-										<OurCalendar />
-									</CalendarContextProvider>
-								</Route>
-								<Route exact path="/updates">
-									<PostContextProvider>
-										<Feed />
-									</PostContextProvider>
-								</Route>
-								<Route exact path="/volunteer" component={Volunteer} />
-								<Route exact path="/contact" component={Contact} />
-								<Route exact path="/login" component={LogIn} />
-								<Route exact path="/education" component={Education} />
-								<Route exact path="/" component={Home} />
-							</Switch>
+							<RouteWrapper>
+								<Switch>
+									<Route exact path="/about" component={About} />
+									<Route exact path="/donation" component={Donation} />
+									<Route exact path="/adoption" component={Adoption} />
+									<Route exact path="/ourcats" component={OurCats} />
+									<Route exact path="/calendar">
+										<CalendarContextProvider>
+											<OurCalendar />
+										</CalendarContextProvider>
+									</Route>
+									<Route exact path="/updates">
+										<PostContextProvider>
+											<Feed />
+										</PostContextProvider>
+									</Route>
+									<Route exact path="/volunteer" component={Volunteer} />
+									<Route exact path="/contact" component={Contact} />
+									<Route exact path="/login" component={LogIn} />
+									<Route exact path="/education" component={Education} />
+									<Route exact path="/" component={Home} />
+								</Switch>
+							</RouteWrapper>
+							<Footer />
 						</Router>
-					</RouteWrapper>
-					<Footer />
+					</MediaContextProvider>
 				</LanguageContextProvider>
 			</APPWrapper>
 			<GlobalStyle />
@@ -71,7 +74,9 @@ const APPWrapper = styled.div`
 `;
 const RouteWrapper = styled.div`
 	//border: 3px solid black;
-	min-height: 1200px;
+	height: auto;
+	width: 100vw;
 	padding-bottom: 100px;
+	min-height: 70vh;
 `;
 export default App;

@@ -20,7 +20,8 @@ import CalendarEvent from "./CalendarEvent";
 import CalendarAddForm from "./CalendarAddForm";
 import Loading from "../Reusable/Loading";
 import ErrorPage from "../Reusable/ErrorPage";
-import { COLORS, LOGOS } from "../../constants";
+import H1 from "../Reusable/H1";
+import { COLORS, LOGOS, device } from "../../constants";
 import { firestoreApp } from "../../Firebase";
 
 // initial values used to reset
@@ -148,7 +149,7 @@ const OurCalendar = () => {
 
 	return (
 		<OurCalendarWrapper>
-			<OurCalenderTitle>{pageTitle}</OurCalenderTitle>
+			<H1>{pageTitle}</H1>
 			<CalendarWrapper>
 				<Calendar
 					onClickDay={(dateClicked, ev) => setD({ date: dateClicked })}
@@ -257,10 +258,21 @@ const OurCalendarWrapper = styled.div`
 	align-items: center;
 `;
 const CalendarWrapper = styled.div`
-	width: 70%;
+	margin-top: 50px;
+	width: 50%;
 	height: auto;
 	margin-bottom: 50px;
 	border-radius: 10px;
+	@media ${device.xs} {
+	}
+	@media ${device.sm} {
+		width: 80%;
+		max-width: 600px;
+	}
+	@media ${device.lg}, ${device.md} {
+		width: 70%;
+		max-width: 900px;
+	}
 `;
 // the events displayed at the bottom
 const CalendarDateEventWrapper = styled.div`
@@ -268,7 +280,7 @@ const CalendarDateEventWrapper = styled.div`
 	border-radius: 10px;
 	margin-top: 40px;
 	padding: 20px;
-	width: 80%;
+	width: 85%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

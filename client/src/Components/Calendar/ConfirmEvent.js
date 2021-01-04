@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import react from "react";
 import { COLORS } from "../../constants";
 import { useLan } from "../../Context/LanguageContext";
 

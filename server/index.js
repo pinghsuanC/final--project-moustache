@@ -16,71 +16,21 @@ app.use(helmet());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-// // Add headers
-// app.use(function (req, res, next) {
-// 	// Website you wish to allow to connect
-// 	res.setHeader(
-// 		"Access-Control-Allow-Origin",
-// 		"https://moustache-app-cb9b0.web.app"
-// 	);
-
-// 	// Request methods you wish to allow
-// 	res.setHeader(
-// 		"Access-Control-Allow-Methods",
-// 		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
-// 	);
-
-// 	// Request headers you wish to allow
-// 	res.setHeader(
-// 		"Access-Control-Allow-Headers",
-// 		"X-Requested-With,content-type"
-// 	);
-
-// 	// Set to true if you need the website to include cookies in the requests sent
-// 	// to the API (e.g. in case you use sessions)
-// 	res.setHeader("Access-Control-Allow-Credentials", true);
-
-// 	// Pass to next layer of middleware
-// 	next();
-// });
-// // Add headers
-// app.options("*", function (req, res) {
-// 	res.setHeader("Access-Control-Allow-Origin", "*");
-// 	res.setHeader("Access-Control-Allow-Methods", "*");
-// 	res.setHeader("Access-Control-Allow-Headers", "*");
-// 	res.end();
-// });
-// app.options("*", cors(corsOptions));
-/*app.use(function (req, res, next) {
-	// Website you wish to allow to connect
-	res.setHeader(
-		"Access-Control-Allow-Origin",
-		"https://moustache-app-cb9b0.web.app/"
-	);
-
-	// Request methods you wish to allow
-	res.setHeader(
-		"Access-Control-Allow-Methods",
-		"OPTIONS, GET, POST, OPTIONS, PUT, PATCH, DELETE"
-	);
-
-	// Request headers you wish to allow
-	res.setHeader(
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
 		"Access-Control-Allow-Headers",
-		"X-Requested-With,content-type"
+		"Origin, X-Requested-With, Content-Type, Accept"
 	);
-
-	// Set to true if you need the website to include cookies in the requests sent
-	// to the API (e.g. in case you use sessions)
-	res.setHeader("Access-Control-Allow-Credentials", true);
-
-	// Pass to next layer of middleware
 	next();
-});*/
+});
 
 app.use("/api/petfinder", require("./controllers/petfinder_api"));
 app.use("/api/firebase", require("./controllers/firebase_api"));
+app.use("/api/facebook", require("./controllers/facebook_api"));
+app.use("/api/youtube", require("./controllers/youtube_api"));
+app.use("/api/email", require("./controllers/email_api"));
 
 app.get("*", (req, res) => {
 	const info = {
